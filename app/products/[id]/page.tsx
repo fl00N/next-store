@@ -46,7 +46,7 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          <ProductRating productId={params.id} />
+          <ProductRating />
 
           <div className="mt-6 flex items-center gap-4">
             <p className="rounded-full bg-primary px-5 py-2 text-lg font-bold text-primary-foreground shadow-sm">
