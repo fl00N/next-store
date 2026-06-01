@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 const SignOutLink = () => {
   const handleLogout = () => {
-    toast("Logging out...");
+    toast.success("Logout successfull!");
   };
 
   return (

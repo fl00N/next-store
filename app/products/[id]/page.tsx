@@ -22,7 +22,6 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
               src={image}
               alt={name}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
               priority
               className="object-cover transition-transform duration-700 hover:scale-105"
             />
