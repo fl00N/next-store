@@ -13,7 +13,7 @@ export const ProductCreatedToast = ({ showToast }: { showToast: boolean }) => {
 
     shown.current = true;
 
-    toast.success("Product created!", {
+    toast.success("Product created", {
       id: "product-created",
     });
 

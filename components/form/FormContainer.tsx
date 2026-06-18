@@ -5,22 +5,33 @@ import { useFormState } from "react-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-const initialState = { message: "" };
+const initialState = { message: "", success: false };
 
-const FormContainer = ({
-  action,
-  children,
-}: {
+type FormContainerProps = {
   action: actionFunction;
   children: React.ReactNode;
-}) => {
+  onSuccess?: () => void;
+};
+
+const FormContainer = ({ action, children, onSuccess }: FormContainerProps) => {
   const [state, formAction] = useFormState(action, initialState);
 
   useEffect(() => {
-    if (state.message) {
-      toast(state.message);
+    if (!state.message) return;
+
+    if (state.success) {
+      toast.success(state.message);
+    } else {
+      toast.error(state.message);
     }
-  }, [state]);
+  }, [state.message, state.success]);
+
+  useEffect(() => {
+    if (state.success) {
+      onSuccess?.();
+    }
+  }, [state.success, onSuccess]);
+
   return <form action={formAction}>{children}</form>;
 };
 

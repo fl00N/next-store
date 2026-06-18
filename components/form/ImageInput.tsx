@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 function ImageInput() {
   const name = "image";
   return (
-    <div className="mb-2">
+    <div className="mb-4 flex gap-3 flex-col">
       <Label htmlFor={name} className="capitalize">
         Image
       </Label>

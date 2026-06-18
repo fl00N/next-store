@@ -1,17 +1,17 @@
-"use client";
+import { auth } from "@clerk/nextjs/server";
+import FavouriteToggleForm from "./FavouriteToggleForm";
+import { FavouriteSignInBtn } from "../form/Buttons";
+import { fetchFavouriteId } from "@/utils/actions";
 
-import { Button } from "../ui/button";
-import { FaHeart } from "react-icons/fa";
+const FavouriteToggleButton = async ({ productId }: { productId: string }) => {
+  const { userId } = auth();
 
-const FavouriteToggleButton = ({ productId }: { productId: string }) => {
-  const handleClick = () => {
-    console.log(productId);
-  };
+  if (!userId) return <FavouriteSignInBtn />;
+
+  const favouriteId = await fetchFavouriteId({ productId });
 
   return (
-    <Button size="icon" variant="outline" className="p-2" onClick={handleClick}>
-      <FaHeart />
-    </Button>
+    <FavouriteToggleForm favouriteId={favouriteId} productId={productId} />
   );
 };
 

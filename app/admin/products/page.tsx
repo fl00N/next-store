@@ -14,12 +14,14 @@ import {
 import { ProductCreatedToast } from "@/components/global/ProductToast";
 import { IconButton } from "@/components/form/Buttons";
 import DeleteProduct from "@/components/global/DeleteProduct";
+import { Suspense } from "react";
+import LoadingTable from "@/components/global/LoadingTable";
 
-const AdminProductsPage = async ({
-  searchParams,
-}: {
+type AdminProductsPageProps = {
   searchParams: { create?: string };
-}) => {
+};
+
+const AdminProductsPage = async ({ searchParams }: AdminProductsPageProps) => {
   const showToast = searchParams.create === "success";
 
   const items = await fetchAdminProducts();
@@ -66,7 +68,7 @@ const AdminProductsPage = async ({
                   <TableCell>{formatPrice(price)}</TableCell>
 
                   <TableCell className="flex items-center gap-x-2">
-                    <Link href={`/admin/${productId}/edit`}>
+                    <Link href={`/admin/products/${productId}/edit`}>
                       <IconButton actionType="edit"></IconButton>
                     </Link>
                     <DeleteProduct productId={productId} />
@@ -81,4 +83,12 @@ const AdminProductsPage = async ({
   );
 };
 
-export default AdminProductsPage;
+export default function AdminDashboardProductsPage({
+  searchParams,
+}: AdminProductsPageProps) {
+  return (
+    <Suspense fallback={<LoadingTable rows={7} />}>
+      <AdminProductsPage searchParams={searchParams} />
+    </Suspense>
+  );
+}

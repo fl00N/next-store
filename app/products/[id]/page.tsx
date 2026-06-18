@@ -17,15 +17,13 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
 
       <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-muted shadow-sm">
-          <div className="relative aspect-square min-h-[24rem]">
-            <Image
-              src={image}
-              alt={name}
-              fill
-              priority
-              className="object-cover transition-transform duration-700 hover:scale-105"
-            />
-          </div>
+          <Image
+            src={image}
+            alt={name}
+            fill
+            priority
+            className="object-cover transition-transform duration-700 hover:scale-105"
+          />
         </div>
 
         <div className="flex flex-col justify-center">
