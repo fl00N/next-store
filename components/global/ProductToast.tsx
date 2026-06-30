@@ -15,10 +15,14 @@ export const ProductCreatedToast = ({ showToast }: { showToast: boolean }) => {
 
     toast.success("Product created", {
       id: "product-created",
+      cancel: {
+        label: "Cancel",
+        onClick: () => {},
+      },
     });
 
     router.replace("/admin/products");
-  }, []);
+  }, [router, showToast]);
 
   return null;
 };

@@ -1,7 +1,6 @@
 import { Skeleton } from "../ui/skeleton";
-import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-const LoadingTable = ({ rows = 7 }: { rows: number }) => {
+const LoadingTable = ({ rows = 7 }: { rows?: number }) => {
   const tableRows = Array.from({ length: rows }, (_, i) => {
     return (
       <div className="mt-4" key={i}>
@@ -10,21 +9,7 @@ const LoadingTable = ({ rows = 7 }: { rows: number }) => {
     );
   });
 
-  return (
-    <>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Product Name</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-      </Table>
-      {tableRows}
-    </>
-  );
+  return [tableRows];
 };
 
 export default LoadingTable;

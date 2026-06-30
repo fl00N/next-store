@@ -13,7 +13,7 @@ const TextAreaInput = ({
   defaultValue,
 }: TextAreaInputProps) => {
   return (
-    <div className="mb-2">
+    <div className="mb-2 flex flex-col gap-2">
       <Label htmlFor={name} className="capitalize">
         {labelText || name}
       </Label>

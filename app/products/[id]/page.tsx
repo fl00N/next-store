@@ -1,15 +1,23 @@
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
-import { fetchSingleProduct } from "@/utils/actions";
+import { fetchSingleProduct, findExistingReview } from "@/utils/actions";
 import Image from "next/image";
 import { formatPrice } from "@/utils/format";
 import FavouriteToggleButton from "@/components/products/FavouriteToggleButton";
 import AddToCart from "@/components/single-product/AddToCart";
 import ProductRating from "@/components/single-product/ProductRating";
+import ShareBtn from "@/components/single-product/ShareBtn";
+import SubmitReview from "@/components/reviews/SubmitReview";
+import ProductReviews from "@/components/reviews/ProductReviews";
+import { auth } from "@clerk/nextjs/server";
 
 async function SingleProductPage({ params }: { params: { id: string } }) {
   const product = await fetchSingleProduct(params.id);
   const { name, image, company, description, price } = product;
   const poundsPrice = formatPrice(price);
+  const { userId } = auth();
+
+  const reviewDoesNotExist =
+    userId && !(await findExistingReview(userId, product.id));
 
   return (
     <section>
@@ -38,12 +46,15 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
               </h1>
             </div>
 
-            <div className="shrink-0 rounded-full border border-border bg-background shadow-sm">
-              <FavouriteToggleButton productId={params.id} />
+            <div className="flex gap-1">
+              <div className="shrink-0 rounded-full border border-border bg-background shadow-sm">
+                <FavouriteToggleButton productId={params.id} />
+              </div>
+              <ShareBtn />
             </div>
           </div>
 
-          <ProductRating />
+          <ProductRating productId={params.id} />
 
           <div className="mt-6 flex items-center gap-4">
             <p className="rounded-full bg-primary px-5 py-2 text-lg font-bold text-primary-foreground shadow-sm">
@@ -68,6 +79,9 @@ async function SingleProductPage({ params }: { params: { id: string } }) {
           <AddToCart productId={params.id} />
         </div>
       </div>
+
+      <ProductReviews productId={params.id} />
+      {reviewDoesNotExist && <SubmitReview productId={params.id} />}
     </section>
   );
 }

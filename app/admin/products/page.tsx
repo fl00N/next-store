@@ -87,7 +87,7 @@ export default function AdminDashboardProductsPage({
   searchParams,
 }: AdminProductsPageProps) {
   return (
-    <Suspense fallback={<LoadingTable rows={7} />}>
+    <Suspense fallback={<LoadingTable />}>
       <AdminProductsPage searchParams={searchParams} />
     </Suspense>
   );

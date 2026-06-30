@@ -5,10 +5,12 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 export default function ModeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const handleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    const nextTheme = resolvedTheme === "dark" ? "light" : "dark";
+
+    setTheme(nextTheme);
   };
 
   return (
