@@ -13,6 +13,7 @@ type FormContainerProps = {
   children: React.ReactNode;
   refreshOnSuccess?: boolean;
   addedToCart?: boolean;
+  onSuccess?: () => void;
 };
 
 const FormContainer = ({
@@ -20,6 +21,7 @@ const FormContainer = ({
   children,
   refreshOnSuccess = false,
   addedToCart = false,
+  onSuccess,
 }: FormContainerProps) => {
   const [state, formAction] = useFormState(action, initialState);
   const router = useRouter();
@@ -35,6 +37,8 @@ const FormContainer = ({
         },
       });
 
+      onSuccess?.();
+
       if (refreshOnSuccess) {
         router.refresh();
       }
@@ -43,7 +47,14 @@ const FormContainer = ({
         cancel: { label: "Cancel", onClick: () => {} },
       });
     }
-  }, [state.message, state.success, refreshOnSuccess, router]);
+  }, [
+    state.message,
+    state.success,
+    refreshOnSuccess,
+    addedToCart,
+    router,
+    onSuccess,
+  ]);
 
   return <form action={formAction}>{children}</form>;
 };
