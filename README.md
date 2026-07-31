@@ -22,14 +22,10 @@ A modern full-stack e-commerce application built with **Next.js 14**, **TypeScri
 
 ### Frontend
 
-- Next.js 14
-- React 18
+- Next.js
 - TypeScript
 - Tailwind CSS
-- Radix UI
-- Lucide React
-- Sonner
-- Axios
+- Shadcn/ui
 
 ### Backend
 
